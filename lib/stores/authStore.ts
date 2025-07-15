@@ -5,8 +5,10 @@ interface AuthState {
   phone: string;
   countryCode: string;
   isAuthenticated: boolean;
+  otp: string; // Add otp to the state
   setPhone: (phone: string) => void;
   setCountryCode: (code: string) => void;
+  setOtp: (otp: string) => void; // Add setter for otp
   verifyOtp: (otp: string) => Promise<boolean>;
   logout: () => void;
 }
@@ -17,18 +19,20 @@ export const useAuthStore = create<AuthState>()(
       phone: '',
       countryCode: '+1',
       isAuthenticated: false,
+      otp: '', // Initialize otp
       setPhone: (phone) => set({ phone }),
       setCountryCode: (countryCode) => set({ countryCode }),
+      setOtp: (otp) => set({ otp }), // Implement setter for otp
       verifyOtp: async (otp) => {
-        return new Promise((resolve) => {
-          setTimeout(() => {
-            set({ isAuthenticated: true });
-            resolve(true);
-          }, 1000);
-        });
+        // Use otp to validate
+        if (otp === '123456') {
+          set({ isAuthenticated: true });
+          return true;
+        }
+        return false;
       },
       logout: () => {
-        set({ isAuthenticated: false, phone: '', countryCode: '+1' });
+        set({ isAuthenticated: false, phone: '', countryCode: '+1', otp: '' });
       }
     }),
     {

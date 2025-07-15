@@ -2,6 +2,7 @@ import { Message } from "@/types";
 import { format } from "date-fns";
 import CopyButton from "@/components/ui/CopyButton";
 import { User, Bot } from "lucide-react";
+import Image from "next/image";
 
 interface MessageItemProps {
   message: Message;
@@ -23,15 +24,19 @@ export default function MessageItem({ message }: MessageItemProps) {
           </div>
           
           <div className="flex-1">
-            {message.image ? (
-              <div className="mb-2">
-                <img 
-                  src={message.image} 
-                  alt="Uploaded" 
-                  className="max-w-full max-h-64 rounded-lg object-contain"
+            {message.image && (
+              <div className="mb-2 relative w-full max-w-full h-auto">
+                <Image
+                  src={message.image}
+                  alt="Uploaded"
+                  unoptimized
+                  width={400}
+                  height={400}
+                  className="rounded-lg object-contain"
                 />
               </div>
-            ) : null}
+            )}
+
             
             {message.content && (
               <p className="whitespace-pre-wrap break-words">

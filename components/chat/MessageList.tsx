@@ -1,3 +1,4 @@
+'use client';
 
 import { Message } from "@/types";
 import { useEffect, useRef } from "react";
@@ -13,8 +14,7 @@ export default function MessageList({ messages }: MessageListProps) {
   const [ref, inView] = useInView();
   const { loadMoreMessages } = useChatStore();
   const listRef = useRef<HTMLDivElement>(null);
-  
-  // Load more messages when user scrolls to top
+
   useEffect(() => {
     if (inView) {
       loadMoreMessages();
@@ -32,7 +32,6 @@ export default function MessageList({ messages }: MessageListProps) {
       ) : (
         <>
           <div ref={ref} className="h-1" />
-          
           {messages.map((message) => (
             <MessageItem key={message.id} message={message} />
           ))}

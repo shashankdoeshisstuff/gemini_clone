@@ -1,39 +1,37 @@
 'use client';
+
 import { useRef, useState } from "react";
 import { Paperclip, SendHorizonal } from "lucide-react";
 import { useChatStore } from "@/lib/stores/chatStore";
+import Image from "next/image";
 
 export default function InputArea() {
   const [message, setMessage] = useState("");
   const [image, setImage] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const { sendMessage } = useChatStore();
-  
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (message.trim() || image) {
       sendMessage({
         role: 'user',
         content: message,
-        image: image || undefined
+        image: image || undefined,
       });
-      
       setMessage("");
       setImage(null);
     }
   };
-  
+
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
-    
-    // Validate image
     if (!file.type.match('image.*')) {
       alert('Please select an image file');
       return;
     }
-    
     const reader = new FileReader();
     reader.onload = (event) => {
       if (event.target?.result) {
@@ -46,11 +44,15 @@ export default function InputArea() {
   return (
     <form onSubmit={handleSubmit} className="border-t border-gray-200 dark:border-gray-700 p-4">
       {image && (
-        <div className="mb-3 relative">
-          <img 
-            src={image} 
-            alt="Preview" 
-            className="max-w-xs max-h-32 rounded-lg"
+        <div className="mb-3 relative w-max max-w-xs max-h-32">
+          <Image
+            src={image}
+            alt="Preview"
+            width={200}
+            height={200}
+            unoptimized
+            className="rounded-lg object-cover"
+            style={{ maxHeight: '8rem', height: 'auto', width: 'auto' }}
           />
           <button
             type="button"
@@ -61,7 +63,7 @@ export default function InputArea() {
           </button>
         </div>
       )}
-      
+
       <div className="flex items-center">
         <button
           type="button"
@@ -77,7 +79,7 @@ export default function InputArea() {
             className="hidden"
           />
         </button>
-        
+
         <input
           type="text"
           value={message}
@@ -85,7 +87,7 @@ export default function InputArea() {
           placeholder="Type a message..."
           className="flex-1 bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg px-4 py-3 mx-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
-        
+
         <button
           type="submit"
           disabled={!message.trim() && !image}

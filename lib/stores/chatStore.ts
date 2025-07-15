@@ -22,109 +22,100 @@ export const useChatStore = create<ChatState>()(
       messages: {},
       currentChatId: null,
       typing: false,
-      
+
       createChatroom: (title) => {
         const newChatroom: Chatroom = {
           id: uuidv4(),
           title,
           createdAt: new Date(),
         };
-        
         set((state) => ({
-          // Fixed: 'chatrooms' instead of 'chartrooms'
           chatrooms: [...state.chatrooms, newChatroom],
-          messages: {
-            ...state.messages,
-            [newChatroom.id]: []
-          },
-          currentChatId: newChatroom.id
+          messages: { ...state.messages, [newChatroom.id]: [] },
+          currentChatId: newChatroom.id,
         }));
       },
-      
+
       deleteChatroom: (id) => {
         set((state) => {
-          const updatedChatrooms = state.chatrooms.filter(chat => chat.id !== id);
+          const updatedChatrooms = state.chatrooms.filter(c => c.id !== id);
           const updatedMessages = { ...state.messages };
           delete updatedMessages[id];
-          
+          const newCurrentChatId = updatedChatrooms[0]?.id ?? null;
           return {
             chatrooms: updatedChatrooms,
             messages: updatedMessages,
-            currentChatId: updatedChatrooms.length > 0 ? updatedChatrooms[0].id : null
+            currentChatId: newCurrentChatId,
           };
         });
       },
-      
+
       setCurrentChat: (id) => set({ currentChatId: id }),
-      
+
       sendMessage: (message) => {
-        const { currentChatId, messages } = get();
+        const currentChatId = get().currentChatId;
         if (!currentChatId) return;
-        
+
         const newMessage: Message = {
           ...message,
           id: uuidv4(),
-          timestamp: new Date()
+          timestamp: new Date(),
         };
-        
         set((state) => ({
           messages: {
             ...state.messages,
-            [currentChatId]: [...(state.messages[currentChatId] || []), newMessage]
-          }
+            [currentChatId]: [...(state.messages[currentChatId] || []), newMessage],
+          },
         }));
-        
-        // Simulate AI response
+
         if (message.role === 'user') {
           setTimeout(() => {
             set({ typing: true });
-            
             setTimeout(() => {
               set((state) => {
-                const currentMessages = state.messages[currentChatId] || [];
+                const msgs = state.messages[currentChatId] || [];
                 return {
                   typing: false,
                   messages: {
                     ...state.messages,
                     [currentChatId]: [
-                      ...currentMessages,
+                      ...msgs,
                       {
                         id: uuidv4(),
                         content: "This is a simulated AI response based on your query.",
                         role: 'ai',
-                        timestamp: new Date()
+                        timestamp: new Date(),
                       }
-                    ]
-                  }
+                    ],
+                  },
                 };
               });
-            }, 2000); // AI "thinking" time
+            }, 2000);
           }, 500);
         }
       },
-      
+
       loadMoreMessages: () => {
-        const { currentChatId, messages } = get();
+        const currentChatId = get().currentChatId;
         if (!currentChatId) return;
-        
-        const currentMessages = messages[currentChatId] || [];
-        if (currentMessages.length > 50) return; // Don't load more if we have enough
-        
-        // Simulate fetching older messages
+
+        const currentMessages = get().messages[currentChatId] || [];
+        if (currentMessages.length > 50) return;
+
         const olderMessages: Message[] = Array.from({ length: 10 }, (_, i) => ({
           id: `old-${Date.now()}-${i}`,
           content: `Older message ${currentMessages.length + i}`,
           role: i % 2 === 0 ? 'user' : 'ai',
-          timestamp: new Date(Date.now() - (i + 1) * 60000)
+          timestamp: new Date(Date.now() - (i + 1) * 60000),
         }));
-        
+
         set((state) => ({
           messages: {
             ...state.messages,
-            [currentChatId]: [...olderMessages, ...currentMessages]
-          }
+            [currentChatId]: [...olderMessages, ...currentMessages],
+          },
         }));
-      }
+      },
     }),
     {
       name: 'chat-storage',
