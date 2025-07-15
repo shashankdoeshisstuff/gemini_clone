@@ -1,6 +1,5 @@
 ### 6. COMPONENT_ARCHITECTURE.md
 
-```markdown
 # Component Architecture
 
 ## Design Principles
@@ -53,4 +52,3 @@
 - **Compound Components**: Related components work together
 - **Render Props**: Flexible component rendering
 - **Custom Hooks**: Reusable logic (useDebounce, useLocalStorage)
-```

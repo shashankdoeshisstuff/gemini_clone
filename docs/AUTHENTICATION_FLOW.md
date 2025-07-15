@@ -1,13 +1,8 @@
-# Authentication Flow
-
-## Sequence Diagram
-
-```mermaid
 sequenceDiagram
-    participant U as User
-    participant C as Client
-    participant S as Store
-    participant A as Auth API
+participant U as User
+participant C as Client
+participant S as Store
+participant A as Auth API
 
     U->>C: Accesses application
     C->>S: Checks auth state
@@ -39,52 +34,48 @@ sequenceDiagram
         S-->>C: Return error
         C-->>U: Show error message
     end
-```
 
-```
-Key Features
+✨ Key Features
+📍 Country Code Selection
 
-    Country Code Selection:
+    Fetches country list via REST Countries API
 
-        Fetches from REST Countries API
+    Dynamic dropdown with search
 
-        Dynamic dropdown with search
+    Local caching for performance
 
-        Local caching of country data
+🧾 Form Validation
 
-    Form Validation:
+    Phone Number: 10–15 digits
 
-        Phone number: 10-15 digits
+    OTP: Exactly 6 digits
 
-        OTP: Exactly 6 digits
+    Real-time feedback on input
 
-        Real-time validation feedback
+    Validation handled with Zod schema
 
-        Schema validation with Zod
+🧪 OTP Simulation
 
-    OTP Simulation:
+    Simulated via setTimeout
 
-        setTimeout-based simulation
+    No real SMS required
 
-        No backend required
+    Handles both success and failure cases
 
-        Success/failure cases handled
+🔐 Security Considerations
 
-    Security Considerations:
+    No real authentication — demo only
 
-        No real SMS sent
+    All validation handled client-side
 
-        Client-side validation only (for demo)
+    Real implementation should include a secure backend
 
-        Production would require backend integration
+⚠️ Error Handling
 
-Error Handling
+    ❌ Invalid phone number format
 
-    Invalid phone number format
+    ❌ Invalid OTP format
 
-    Invalid OTP format
+    ❌ OTP verification failure
 
-    OTP verification failure
-
-    Network errors (country fetch)
-```
+    ❌ Network/API errors (e.g., country code fetch)
