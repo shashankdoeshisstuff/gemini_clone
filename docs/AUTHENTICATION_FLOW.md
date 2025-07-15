@@ -1,8 +1,13 @@
+# Authentication Flow
+
+## Sequence Diagram
+
+```mermaid
 sequenceDiagram
-participant U as User
-participant C as Client
-participant S as Store
-participant A as Auth API
+    participant U as User
+    participant C as Client
+    participant S as Store
+    participant A as Auth API
 
     U->>C: Accesses application
     C->>S: Checks auth state
@@ -34,48 +39,52 @@ participant A as Auth API
         S-->>C: Return error
         C-->>U: Show error message
     end
+```
 
-✨ Key Features
-📍 Country Code Selection
+```
+Key Features
 
-    Fetches country list via REST Countries API
+    Country Code Selection:
 
-    Dynamic dropdown with search
+        Fetches from REST Countries API
 
-    Local caching for performance
+        Dynamic dropdown with search
 
-🧾 Form Validation
+        Local caching of country data
 
-    Phone Number: 10–15 digits
+    Form Validation:
 
-    OTP: Exactly 6 digits
+        Phone number: 10-15 digits
 
-    Real-time feedback on input
+        OTP: Exactly 6 digits
 
-    Validation handled with Zod schema
+        Real-time validation feedback
 
-🧪 OTP Simulation
+        Schema validation with Zod
 
-    Simulated via setTimeout
+    OTP Simulation:
 
-    No real SMS required
+        setTimeout-based simulation
 
-    Handles both success and failure cases
+        No backend required
 
-🔐 Security Considerations
+        Success/failure cases handled
 
-    No real authentication — demo only
+    Security Considerations:
 
-    All validation handled client-side
+        No real SMS sent
 
-    Real implementation should include a secure backend
+        Client-side validation only (for demo)
 
-⚠️ Error Handling
+        Production would require backend integration
 
-    ❌ Invalid phone number format
+Error Handling
 
-    ❌ Invalid OTP format
+    Invalid phone number format
 
-    ❌ OTP verification failure
+    Invalid OTP format
 
-    ❌ Network/API errors (e.g., country code fetch)
+    OTP verification failure
+
+    Network errors (country fetch)
+```
