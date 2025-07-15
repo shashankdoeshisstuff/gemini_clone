@@ -1,9 +1,9 @@
-import MessageItem from "./MessageItem";
+
 import { Message } from "@/types";
 import { useEffect, useRef } from "react";
 import { useInView } from "react-intersection-observer";
 import { useChatStore } from "@/lib/stores/chatStore";
-import Skeleton from "@/components/ui/Skeleton";
+import MessageItem from "./MessageItem";
 
 interface MessageListProps {
   messages: Message[];
