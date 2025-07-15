@@ -1,11 +1,13 @@
 'use client';
 import ChatInterface from "@/components/chat/ChatInterface";
 import { useChatStore } from "@/lib/stores/chatStore";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Sidebar from "./Sidebar";
+import { Menu, PanelRightClose, X } from "lucide-react";
 
 export default function DashboardLayout() {
   const { chatrooms, currentChatId, setCurrentChat } = useChatStore();
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   
   // Set the first chat as active if none is selected
   useEffect(() => {
@@ -14,9 +16,52 @@ export default function DashboardLayout() {
     }
   }, [chatrooms, currentChatId, setCurrentChat]);
 
+  // Close sidebar when screen size changes to desktop
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 768) {
+        setIsSidebarOpen(false);
+      }
+    };
+    
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   return (
     <div className="flex h-screen bg-gray-100 dark:bg-gray-900">
-      <Sidebar />
+      {/* Mobile Sidebar Toggle Button */}
+      <button
+        onClick={() => setIsSidebarOpen(true)}
+        className="md:hidden fixed top-3 left-4 z-20 p-2 bg-neutral-200 text-blue-500 rounded-xl"
+      >
+        <PanelRightClose  size={24}/>
+      </button>
+
+      {/* Sidebar - Hidden on mobile by default */}
+      <div 
+        className={`fixed md:relative z-30 h-full transform transition-transform duration-300 ease-in-out ${
+          isSidebarOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'
+        }`}
+      >
+        <Sidebar />
+        
+        {/* Close button for mobile sidebar */}
+        <button
+          onClick={() => setIsSidebarOpen(false)}
+          className="md:hidden absolute top-3 right-4 p-2 text-xl hover:text-red-500 text-blue-500 rounded-xl"
+        >
+          <X size={24} />
+        </button>
+      </div>
+
+      {/* Overlay for mobile sidebar */}
+      {isSidebarOpen && (
+        <div 
+          className="fixed inset-0 z-20 md:hidden"
+          onClick={() => setIsSidebarOpen(false)}
+        />
+      )}
       
       <main className="flex-1 flex flex-col overflow-hidden">
         {currentChatId ? (
