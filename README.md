@@ -43,6 +43,7 @@ src/
 ├── types/                 # TypeScript type definitions
 ├── styles/                # Global styles
 └── public/                # Static assets
+```
 
 # Technology Stack
 
@@ -107,8 +108,6 @@ src/
 - Throttled AI responses
 - Loading skeletons for better perceived performance
 
-
 # For More Detailed Documemtation Look into 'docs' folder
 
 [For More Detailed Documentation Look into 'docs' folder](./docs/)
-```
