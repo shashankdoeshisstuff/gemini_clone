@@ -3,7 +3,7 @@ import ChatInterface from "@/components/chat/ChatInterface";
 import { useChatStore } from "@/lib/stores/chatStore";
 import { useEffect, useState } from "react";
 import Sidebar from "./Sidebar";
-import { Menu, PanelRightClose, X } from "lucide-react";
+import { PanelRightClose, X } from "lucide-react";
 
 export default function DashboardLayout() {
   const { chatrooms, currentChatId, setCurrentChat } = useChatStore();
