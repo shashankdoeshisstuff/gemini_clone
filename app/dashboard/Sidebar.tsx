@@ -2,27 +2,26 @@
 import { useState } from "react";
 import { useAuthStore } from "@/lib/stores/authStore";
 import { useChatStore } from "@/lib/stores/chatStore";
-import CreateChatModal from "./CreateChatModal";
 import ThemeToggle from "@/components/ui/ThemeToggle";
 import { SearchIcon, PlusIcon } from "lucide-react";
 import useDebounce from "@/hooks/useDebounce"; // Fixed import
 import ChatroomList from "./ChatroomList";
 
-export default function Sidebar() {
+interface SidebarProps {
+  setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export default function Sidebar({ setIsModalOpen }: SidebarProps) {
   const logout = useAuthStore((state) => state.logout);
-  const { chatrooms, createChatroom, deleteChatroom } = useChatStore();
+  const { chatrooms, deleteChatroom } = useChatStore();
   const [searchTerm, setSearchTerm] = useState("");
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const debouncedSearchTerm = useDebounce(searchTerm, 300); // Now works correctly
   
   const filteredChatrooms = chatrooms.filter(chatroom => 
     chatroom.title.toLowerCase().includes(debouncedSearchTerm.toLowerCase())
   );
 
-  const handleCreateChat = (title: string) => {
-    createChatroom(title);
-    setIsModalOpen(false);
-  };
+  
 
   return (
     <div className="w-80 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 flex flex-col h-full">
@@ -69,12 +68,6 @@ export default function Sidebar() {
           Logout
         </button>
       </div>
-      
-      <CreateChatModal 
-        isOpen={isModalOpen} 
-        onClose={() => setIsModalOpen(false)} 
-        onCreate={handleCreateChat} 
-      />
     </div>
   );
 }

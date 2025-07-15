@@ -4,10 +4,12 @@ import { useChatStore } from "@/lib/stores/chatStore";
 import { useEffect, useState } from "react";
 import Sidebar from "./Sidebar";
 import { PanelRightClose, X } from "lucide-react";
+import CreateChatModal from "./CreateChatModal";
 
 export default function DashboardLayout() {
-  const { chatrooms, currentChatId, setCurrentChat } = useChatStore();
+  const { chatrooms, currentChatId, setCurrentChat, createChatroom } = useChatStore();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   
   // Set the first chat as active if none is selected
   useEffect(() => {
@@ -28,6 +30,11 @@ export default function DashboardLayout() {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+  const handleCreateChat = (title: string) => {
+    createChatroom(title);
+    setIsModalOpen(false);
+  };
+
   return (
     <div className="flex h-screen bg-gray-100 dark:bg-gray-900">
       {/* Mobile Sidebar Toggle Button */}
@@ -44,7 +51,7 @@ export default function DashboardLayout() {
           isSidebarOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'
         }`}
       >
-        <Sidebar />
+        <Sidebar setIsModalOpen={setIsModalOpen}/>
         
         {/* Close button for mobile sidebar */}
         <button
@@ -79,6 +86,12 @@ export default function DashboardLayout() {
           </div>
         )}
       </main>
+
+      <CreateChatModal 
+        isOpen={isModalOpen} 
+        onClose={() => setIsModalOpen(false)} 
+        onCreate={handleCreateChat} 
+      />
     </div>
   );
 }

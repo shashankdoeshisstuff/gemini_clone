@@ -27,8 +27,9 @@ export default function CreateChatModal({
   };
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+    <div className="fixed inset-0 z-[9999] bg-black/10 bg-opacity-20 flex items-center justify-center p-4 h-screen w-screen">
       <div className="bg-white dark:bg-gray-800 rounded-xl shadow-xl w-full max-w-md">
+        {/* Modal content here */}
         <div className="p-6">
           <h2 className="text-xl font-bold mb-4 text-gray-900 dark:text-white">
             Create New Chat
