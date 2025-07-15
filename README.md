@@ -107,3 +107,5 @@ npx shadcn-ui@latest init
 ```
 
 # For More Detailed Documemtation Look into 'docs' folder
+
+[For More Detailed Documentation Look into 'docs' folder](./docs/)
