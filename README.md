@@ -1,6 +1,6 @@
 # Gemini Clone - Frontend Assignment
 
-![Gemini Clone Screenshot](./docs/screenshots/dashboard-dark.png)
+![Gemini Clone Screenshot](./docs/screenshots/dashboard.png)
 
 A fully functional, responsive frontend clone of a Gemini-style conversational AI chat application built for Kuvaka Tech's frontend developer assignment.
 
@@ -105,3 +105,5 @@ npx shadcn-ui@latest init
 └── /styles
 └── globals.css # Global CSS styles
 ```
+
+# For More Detailed Documemtation Look into 'docs' folder
