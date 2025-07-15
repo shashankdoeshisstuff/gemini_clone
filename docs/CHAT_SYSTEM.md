@@ -1,6 +1,5 @@
 ### 8. CHAT_SYSTEM.md
 
-````markdown
 # Chat System Design
 
 ## Architecture Overview
@@ -15,7 +14,6 @@ graph TD
     C --> G[Infinite Scroll]
     G --> H[Load Older Messages]
 ```
-````
 
 ```
 Key Features
