@@ -19,7 +19,7 @@ A fully functional, responsive frontend clone of a Gemini-style conversational A
 
 ## Live Demo
 
-[View Live Demo on Vercel](https://gemini-clone-kuvaka.vercel.app)
+[View Live Demo on Vercel](https://gemini-clone-flax-five.vercel.app)
 
 ## Tech Stack
 
