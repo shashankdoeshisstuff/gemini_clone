@@ -6,8 +6,8 @@ import { Toaster } from "react-hot-toast"; // Use react-hot-toast directly
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Gemini Clone - Kuvaka Tech",
-  description: "A frontend clone assignment for Kuvaka Tech",
+  title: "Gemini Clone - Chat Bot Frontend",
+  description: "A frontend clone of the AI Chat Bots",
 };
 
 export default function RootLayout({
@@ -18,6 +18,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        {/* Favicon */}
+       <link rel="icon" type="image/svg+xml" href="/assets/botmsg.svg" />
         {/* Preload fonts properly */}
         <link
           rel="preload"
