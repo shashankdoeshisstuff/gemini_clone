@@ -44,68 +44,71 @@ src/
 ├── styles/                # Global styles
 └── public/                # Static assets
 
-## Commands
+# Technology Stack
 
-npx create-next-app@latest ./
-npm install zustand react-hook-form zod @hookform/resolvers tailwindcss postcss autoprefixer
-npm install @radix-ui/react-toast lucide-react
-npx shadcn-ui@latest init
+## Core Framework
 
-## Directory Tree
+- **Next.js 15 (App Router)**:
+  - Enables server-side rendering, static site generation, and API routes
+  - App Router for file-based routing with enhanced performance
+  - Built-in optimizations for fast page loads
 
-/src
-├── /app # Main app routes and layouts
-│ ├── /layout.tsx # Root layout for the application
-│ ├── /(auth) # Auth-related routes
-│ │ └── /login
-│ │ ├── page.tsx # Login page
-│ │ └── otp-verification.tsx # OTP verification page
-│ └── /dashboard
-│ └── page.tsx # Dashboard landing page
-│
-├── /components # Reusable UI and feature-specific components
-│ ├── /auth # Authentication-related components
-│ │ ├── CountrySelect.tsx
-│ │ ├── PhoneForm.tsx
-│ │ └── OtpForm.tsx
-│ │
-│ ├── /chat # Chat feature components
-│ │ ├── ChatHeader.tsx
-│ │ ├── MessageList.tsx
-│ │ ├── MessageItem.tsx
-│ │ └── InputArea.tsx
-│ │
-│ ├── /dashboard # Dashboard components
-│ │ ├── Sidebar.tsx
-│ │ ├── ChatroomList.tsx
-│ │ ├── ChatroomItem.tsx
-│ │ └── CreateChatModal.tsx
-│ │
-│ └── /ui # Shared UI components
-│ ├── Skeleton.tsx
-│ ├── Toast.tsx
-│ └── CopyButton.tsx
-│
-├── /hooks # Custom React hooks
-│ ├── useDebounce.ts
-│ ├── useLocalStorage.ts
-│ └── useThrottle.ts
-│
-├── /lib # Libraries and utilities
-│ ├── /api # API utilities
-│ │ └── countries.ts
-│ ├── /validators # Validation schemas
-│ │ └── authSchema.ts
-│ ├── /stores # Global state management
-│ │ ├── authStore.ts
-│ │ ├── chatStore.ts
-│ │ └── uiStore.ts
-│ └── constants.ts # Global constants
-│
-└── /styles
-└── globals.css # Global CSS styles
-```
+## State Management
+
+- **Zustand**:
+  - Lightweight state management solution
+  - Simple API with minimal boilerplate
+  - Persists state to localStorage automatically
+  - Used for:
+    - Authentication state
+    - Chatroom and message management
+    - UI preferences (dark mode)
+
+## Form Handling
+
+- **React Hook Form**:
+  - Performant form management with minimal re-renders
+  - Uncontrolled components for better performance
+  - Flexible validation integration
+- **Zod**:
+  - TypeScript-first schema validation
+  - Seamless integration with React Hook Form
+  - Used for:
+    - Phone number validation
+    - OTP validation
+    - Chatroom creation forms
+
+## Styling
+
+- **Tailwind CSS**:
+  - Utility-first CSS framework
+  - Responsive design out-of-the-box
+  - Dark mode support with `dark:` prefix
+  - JIT compiler for optimized builds
+- **Shadcn UI**:
+  - Collection of accessible, customizable components
+  - Built on top of Radix UI primitives
+  - Themeable with CSS variables
+
+## Additional Libraries
+
+- **Lucide Icons**: Beautiful, consistent SVG icons
+- **react-hot-toast**: Lightweight toast notifications
+- **date-fns**: Modern date utility library
+- **uuid**: Unique ID generation
+- **react-intersection-observer**: For infinite scroll implementation
+
+## Performance Optimizations
+
+- Code splitting with Next.js dynamic imports
+- Zustand's selective state subscriptions
+- React.memo for component memoization
+- Debounced search inputs
+- Throttled AI responses
+- Loading skeletons for better perceived performance
+
 
 # For More Detailed Documemtation Look into 'docs' folder
 
 [For More Detailed Documentation Look into 'docs' folder](./docs/)
+```
